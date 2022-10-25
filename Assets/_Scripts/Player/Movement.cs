@@ -5,6 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
+    [SerializeField] private float rotationSpeed;
 
     private Rigidbody rb;
     private Transform cameraTransform;
@@ -14,6 +15,9 @@ public class Movement : MonoBehaviour
     float inputVertical = 0f;
 
     Vector3 movementVector;
+    Vector3 rotationVector;
+    Quaternion lookRotation;
+
 
     // ======================================
 
@@ -33,11 +37,13 @@ public class Movement : MonoBehaviour
     private void FixedUpdate()
     {
         HandlePlayerMovement();
+        HandlePlayerRotation();
     }
 
     #endregion
 
     // ======================================
+
 
     #region Private Methods
 
@@ -60,7 +66,19 @@ public class Movement : MonoBehaviour
         rb.MovePosition(transform.position + movementVector);
     }
 
+    private void HandlePlayerRotation()
+    {
+        rotationVector = new Vector3(inputHorizontal, 0, inputVertical);
+        if (rotationVector.magnitude <= 0.1f) return;
+
+        rotationVector = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f) * rotationVector;
+        lookRotation = Quaternion.LookRotation(rotationVector);
+        
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, rotationSpeed);
+    }
+
     #endregion
+
 
     // ======================================
 
