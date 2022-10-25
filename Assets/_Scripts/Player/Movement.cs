@@ -6,7 +6,8 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
 
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
+    private Transform cameraTransform;
 
 
     float inputHorizontal = 0f;
@@ -20,7 +21,8 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
+        cameraTransform = Camera.main.transform;
     }
 
     private void Update()
@@ -52,8 +54,10 @@ public class Movement : MonoBehaviour
             movementVector.Normalize();
 
         movementVector = movementVector * movementSpeed * Time.fixedDeltaTime;
+        movementVector = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0) * movementVector;
 
-        rigidbody.MovePosition(transform.position + movementVector);
+
+        rb.MovePosition(transform.position + movementVector);
     }
 
     #endregion
