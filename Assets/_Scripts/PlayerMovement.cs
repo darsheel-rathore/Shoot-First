@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private Transform mainCameraTransform;
     private Quaternion lookRotation;
 
-    [Header("Player Control")]
+    [Header("Player Control\n")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private bool isMobileInput;
