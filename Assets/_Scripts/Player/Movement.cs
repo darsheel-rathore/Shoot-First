@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float rotationSpeed;
 
     private Rigidbody rb;
+    private PlayerInputManager inputManager;
     private Transform cameraTransform;
 
 
@@ -26,12 +27,8 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        inputManager = GetComponent<PlayerInputManager>();
         cameraTransform = Camera.main.transform;
-    }
-
-    private void Update()
-    {
-        HandleInputs();
     }
 
     private void FixedUpdate()
@@ -47,15 +44,9 @@ public class Movement : MonoBehaviour
 
     #region Private Methods
 
-    private void HandleInputs()
-    {
-        inputHorizontal = Input.GetAxis("Horizontal");
-        inputVertical = Input.GetAxis("Vertical");
-    }
-
     private void HandlePlayerMovement()
     {
-        movementVector = new Vector3(inputHorizontal, 0, inputVertical);
+        movementVector = inputManager.GetMovementVector();
         if (movementVector.magnitude >= 1)
             movementVector.Normalize();
 
@@ -68,7 +59,7 @@ public class Movement : MonoBehaviour
 
     private void HandlePlayerRotation()
     {
-        rotationVector = new Vector3(inputHorizontal, 0, inputVertical);
+        rotationVector = inputManager.GetMovementVector();
         if (rotationVector.magnitude <= 0.1f) return;
 
         rotationVector = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f) * rotationVector;
