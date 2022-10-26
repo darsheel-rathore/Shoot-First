@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField] private DynamicJoystick movementStick;
-    [SerializeField] private DynamicJoystick fireStick;
 
     private Vector3 movementVector;
     
@@ -20,6 +19,14 @@ public class PlayerInputManager : MonoBehaviour
             Input.GetAxis("Horizontal"),
             0f,
             Input.GetAxis("Vertical")
+        );
+
+        if (movementStick.Direction == Vector2.zero) return;
+
+        movementVector = new Vector3(
+            movementStick.Horizontal,
+            0f,
+            movementStick.Vertical
         );
     }
 

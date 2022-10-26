@@ -5,7 +5,6 @@ using UnityEngine;
 public class AnimationController : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    [SerializeField] DynamicJoystick controlStick;
 
     PlayerInputManager inputManager;
 

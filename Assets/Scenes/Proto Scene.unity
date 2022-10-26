@@ -979,12 +979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba0d0e7a039f526499c356a3c5cd6d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1711299816 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8848744627624155883, guid: 509ecaa43e6c0f34eb2aa5dfbaa5a359,
-    type: 3}
-  m_PrefabInstance: {fileID: 8848744628388788906}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1968333038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,19 +1079,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8848744628388788912, guid: 509ecaa43e6c0f34eb2aa5dfbaa5a359,
+    - target: {fileID: 8848744628388788916, guid: 509ecaa43e6c0f34eb2aa5dfbaa5a359,
         type: 3}
-      propertyPath: joystick
-      value: 
-      objectReference: {fileID: 1306346816}
-    - target: {fileID: 8848744628388788912, guid: 509ecaa43e6c0f34eb2aa5dfbaa5a359,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8848744628388788912, guid: 509ecaa43e6c0f34eb2aa5dfbaa5a359,
-        type: 3}
-      propertyPath: controlStick
+      propertyPath: movementStick
       value: 
       objectReference: {fileID: 1306346816}
     m_RemovedComponents: []
@@ -1108,17 +1092,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8848744628388788906}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8848744628388788916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1711299816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba63e5009c38af84aae24abb6815515a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementStick: {fileID: 0}
-  fireStick: {fileID: 0}
