@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [Range(0, 1f)]
-    [SerializeField] private float strafingMultiplier = 0.5f;
-
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float strafingSpeed = 2.5f;
+    [SerializeField] private float normalMovementSpeed = 5f;
     [SerializeField] private float rotationSpeed;
 
     private Rigidbody rb;
     private PlayerInputManager inputManager;
     private Transform cameraTransform;
 
+    float movementSpeed;
     Vector3 movementVector;
     Vector3 rotationVector;
     Quaternion lookRotation;
@@ -79,7 +78,7 @@ public class Movement : MonoBehaviour
     #region Public Methods
 
     public void SetStrafingSpeed(bool isStrafing) =>
-        movementSpeed = (isStrafing) ? 2.5f : 5f;
+        movementSpeed = (isStrafing) ? strafingSpeed : normalMovementSpeed;
 
     #endregion
 }
