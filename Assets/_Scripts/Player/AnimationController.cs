@@ -13,7 +13,7 @@ public class AnimationController : MonoBehaviour
     private Vector3 movementVector;
     private Vector3 rotationVector;
 
-
+    // animator hashes
     private int zVelocityHash = 0;
     private int xVelocityHash = 0;
     private int isStrafingHash = 0;
@@ -27,6 +27,9 @@ public class AnimationController : MonoBehaviour
     private float signedAngle = 0f;
     private Vector2 referenceVector = new Vector2(0, 1);
 
+    private bool isFireButtonPressed = false;
+    private bool isFireTriggered = false;
+
 
     // ===========================================
 
@@ -35,14 +38,14 @@ public class AnimationController : MonoBehaviour
 
     private void OnEnable()
     {
-        FireButton.OnPressed += FireAnimationPlay;
-        FireButton.OnLift += FireAnimationStop;
+        FireButton.OnPressed += FireButtonPressed;
+        FireButton.OnLift += FireButtonReleased;
     }
 
     private void OnDisable()
     {
-        FireButton.OnPressed -= FireAnimationPlay;
-        FireButton.OnLift -= FireAnimationStop;
+        FireButton.OnPressed -= FireButtonPressed;
+        FireButton.OnLift -= FireButtonReleased;
     }
 
     void Start()
@@ -60,6 +63,29 @@ public class AnimationController : MonoBehaviour
         SetStrafingAndStrafingSpeed();
 
         HandlePlayerAnimation();
+        
+        HandleFireAnimation();
+    }
+
+    // prevents running the fire animation 
+    // by only tapping the fire button and not moving
+    // the fire button
+    private void HandleFireAnimation()
+    {
+        if (isFireButtonPressed)
+        {
+            if (rotationVector.magnitude <= 0.1f) return;
+            if (isFireTriggered) return;
+
+            animator.SetBool(isFiringHash, true);
+            animator.SetTrigger(fireTriggerHash);
+            isFireTriggered = true;
+        }
+        else
+        {
+            animator.SetBool(isFiringHash, false);
+            isFireTriggered = false;
+        }
     }
 
     #endregion
@@ -117,15 +143,14 @@ public class AnimationController : MonoBehaviour
 
     #region Event Methods
 
-    private void FireAnimationPlay()
+    private void FireButtonPressed()
     {
-        animator.SetBool(isFiringHash, true);
-        animator.SetTrigger(fireTriggerHash);
+        isFireButtonPressed = true;
     }
 
-    private void FireAnimationStop()
+    private void FireButtonReleased()
     {
-        animator.SetBool(isFiringHash, false);
+        isFireButtonPressed = false;
     }
 
     #endregion
