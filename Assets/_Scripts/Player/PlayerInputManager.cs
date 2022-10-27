@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField] private DynamicJoystick movementStick;
-    [SerializeField] private FixedJoystick rotationStick;
+    [SerializeField] private DynamicJoystick rotationStick;
 
     private Vector3 movementVector;
     private Vector3 rotationVector;
@@ -39,7 +39,7 @@ public class PlayerInputManager : MonoBehaviour
                 movementStick.Vertical
             );
         }
-        
+
         if (rotationVector == Vector3.zero) rotationVector = movementVector;
     }
 
