@@ -2827,7 +2827,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a4c1e3e678ac6b41b05721a38c7db1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  strafingSpeed: 2
+  normalMovementSpeed: 5
   rotationSpeed: 10
 --- !u!114 &8848744628388788912
 MonoBehaviour:
@@ -2855,6 +2856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementStick: {fileID: 0}
+  rotationStick: {fileID: 0}
 --- !u!1 &8859816708585667681
 GameObject:
   m_ObjectHideFlags: 0
