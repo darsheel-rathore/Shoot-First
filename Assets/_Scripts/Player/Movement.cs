@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [Range(0, 1f)]
+    [SerializeField] private float strafingMultiplier = 0.5f;
+
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationSpeed;
 
     private Rigidbody rb;
     private PlayerInputManager inputManager;
     private Transform cameraTransform;
-
-
-    float inputHorizontal = 0f;
-    float inputVertical = 0f;
 
     Vector3 movementVector;
     Vector3 rotationVector;
@@ -44,6 +43,7 @@ public class Movement : MonoBehaviour
 
     #region Private Methods
 
+
     private void HandlePlayerMovement()
     {
         movementVector = inputManager.GetMovementVector();
@@ -53,13 +53,13 @@ public class Movement : MonoBehaviour
         movementVector = movementVector * movementSpeed * Time.fixedDeltaTime;
         movementVector = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0) * movementVector;
 
-
         rb.MovePosition(transform.position + movementVector);
     }
 
+
     private void HandlePlayerRotation()
     {
-        rotationVector = inputManager.GetMovementVector();
+        rotationVector = inputManager.GetRotationVector();
         if (rotationVector.magnitude <= 0.1f) return;
 
         rotationVector = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f) * rotationVector;
@@ -68,9 +68,18 @@ public class Movement : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, rotationSpeed);
     }
 
+
     #endregion
 
 
     // ======================================
 
+
+
+    #region Public Methods
+
+    public void SetStrafingSpeed(bool isStrafing) =>
+        movementSpeed = (isStrafing) ? 2.5f : 5f;
+
+    #endregion
 }

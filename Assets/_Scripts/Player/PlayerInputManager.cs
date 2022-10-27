@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField] private DynamicJoystick movementStick;
+    [SerializeField] private FixedJoystick rotationStick;
 
     private Vector3 movementVector;
-    
+    private Vector3 rotationVector;
+
     private void Update()
     {
         TakePlayerInput();
@@ -21,14 +23,26 @@ public class PlayerInputManager : MonoBehaviour
             Input.GetAxis("Vertical")
         );
 
-        if (movementStick.Direction == Vector2.zero) return;
-
-        movementVector = new Vector3(
-            movementStick.Horizontal,
+        rotationVector = new Vector3(
+            rotationStick.Horizontal,
             0f,
-            movementStick.Vertical
+            rotationStick.Vertical
         );
+
+
+        // just to use keybord for moving input
+        if (movementStick.Direction != Vector2.zero)
+        {
+            movementVector = new Vector3(
+                movementStick.Horizontal,
+                0f,
+                movementStick.Vertical
+            );
+        }
+        
+        if (rotationVector == Vector3.zero) rotationVector = movementVector;
     }
 
     public Vector3 GetMovementVector() => movementVector;
+    public Vector3 GetRotationVector() => rotationVector;
 }
