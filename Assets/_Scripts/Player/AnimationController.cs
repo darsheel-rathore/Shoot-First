@@ -186,6 +186,14 @@ public class AnimationController : MonoBehaviour
     #endregion
 
 
+    // ===========================================
 
+
+
+    #region Public Methods
+
+    public bool GetIsFiringTriggered() => isFireTriggered;
+
+    #endregion
 
 }

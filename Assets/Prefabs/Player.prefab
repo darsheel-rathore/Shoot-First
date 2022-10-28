@@ -1732,7 +1732,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5069355248312412466}
-  - component: {fileID: 1205235622983349064}
   m_Layer: 0
   m_Name: man_skate_Rig G
   m_TagString: Untagged
@@ -1757,26 +1756,6 @@ Transform:
   m_Father: {fileID: 8848744627624155880}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1205235622983349064
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5553544247780324232}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e5fc5948c1f5d394d8af0270698b7df3, type: 3}
-  m_Controller: {fileID: 9100000, guid: 042c63662c7b87d49aaf796fbec29897, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5714918870987984121
 GameObject:
   m_ObjectHideFlags: 0
@@ -2762,6 +2741,7 @@ GameObject:
   - component: {fileID: 8848744628388788908}
   - component: {fileID: 8848744628388788912}
   - component: {fileID: 8848744628388788916}
+  - component: {fileID: 8848744628388788917}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2842,7 +2822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b303891176a16a4dbeebf84ab88d3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1205235622983349064}
+  animator: {fileID: 8848744628388788917}
 --- !u!114 &8848744628388788916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2857,6 +2837,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementStick: {fileID: 0}
   rotationStick: {fileID: 0}
+--- !u!95 &8848744628388788917
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8848744627624155883}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e5fc5948c1f5d394d8af0270698b7df3, type: 3}
+  m_Controller: {fileID: 9100000, guid: 042c63662c7b87d49aaf796fbec29897, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8859816708585667681
 GameObject:
   m_ObjectHideFlags: 0
