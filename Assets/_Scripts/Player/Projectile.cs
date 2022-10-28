@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     private bool startMoving = false;
 
     private Vector3 forwardDirection;
+    private float damageAmount;
 
     private void Update()
     {
@@ -19,9 +20,12 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         if (other.transform.CompareTag("Player"))
-            Debug.Log("HIT");
+        {
+            other.GetComponent<Health>().TakeDamage(damageAmount);
+        }
     }
 
     public void SetProjectileSpeed(float speed) => projectileSpeed = speed;
     public void SetStartMoving(bool isMoving) => startMoving = isMoving;
+    public void SetDamageAmount(float damageAmount) => this.damageAmount = damageAmount;
 }

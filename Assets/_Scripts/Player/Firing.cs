@@ -9,6 +9,7 @@ public class Firing : MonoBehaviour
     [SerializeField] private GameObject projectile;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private Transform bulletParent;
+    [SerializeField] private float damageAmount = 15f;
 
     private AudioSource audioSource;
 
@@ -26,7 +27,8 @@ public class Firing : MonoBehaviour
                             .GetComponent<Projectile>();
         bullet.SetProjectileSpeed(projectileSpeed);
         bullet.SetStartMoving(true);
-
+        bullet.SetDamageAmount(damageAmount);
+        
         audioSource.Play();
     }
 
