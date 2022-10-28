@@ -2924,8 +2924,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  fullHealthColor: {r: 0, g: 1, b: 0.041554213, a: 0}
-  zeroHealthColor: {r: 1, g: 0, b: 0, a: 0}
+  fullHealthColor: {r: 0, g: 1, b: 0.041554213, a: 1}
+  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
   healthSlider: {fileID: 1281536399}
   fillImage: {fileID: 1958671225}
 --- !u!82 &8848744628388788919
@@ -3277,6 +3277,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3564462305292381263, guid: dd5db9b83cd83d147bb70db072f253aa,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3564462305706290873, guid: dd5db9b83cd83d147bb70db072f253aa,
+        type: 3}
+      propertyPath: m_Value
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd5db9b83cd83d147bb70db072f253aa, type: 3}
