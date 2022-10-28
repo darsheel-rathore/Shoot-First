@@ -67,6 +67,54 @@ public class AnimationController : MonoBehaviour
         HandleFireAnimation();
     }
 
+    #endregion
+
+
+    // ===========================================
+
+
+    #region Private Methods
+
+    private void CollectInputs()
+    {
+        movementVector = inputManager.GetMovementVector();
+        rotationVector = inputManager.GetRotationVector();
+    }
+
+
+    private void SetStrafingAndStrafingSpeed()
+    {
+        isStrafing = (rotationVector != Vector3.zero);
+        movement.SetStrafingSpeed(isStrafing);
+    }
+
+    private void HandlePlayerAnimation()
+    {
+        if (isStrafing)
+        {
+            CalculateStrafingVector();
+            PerformStrafingAnimation();
+        }
+        else
+        {
+            PerformNonStrafingAnimation();
+        }
+    }
+
+
+    private void PerformNonStrafingAnimation()
+    {
+        animator.SetBool(isStrafingHash, isStrafing);
+        animator.SetFloat(zVelocityHash, inputManager.GetMovementVector().magnitude);
+    }
+
+    private void PerformStrafingAnimation()
+    {
+        animator.SetBool(isStrafingHash, isStrafing);
+        animator.SetFloat(xVelocityHash, strafingVector.x);
+        animator.SetFloat(zVelocityHash, strafingVector.y);
+    }
+
     // prevents running the fire animation 
     // by only tapping the fire button and not moving
     // the fire button
@@ -88,52 +136,7 @@ public class AnimationController : MonoBehaviour
         }
     }
 
-    #endregion
 
-
-    // ===========================================
-
-
-    #region Private Methods
-
-
-    private void HandlePlayerAnimation()
-    {
-        if (isStrafing)
-        {
-            CalculateStrafingVector();
-            PerformStrafingAnimation();
-        }
-        else
-        {
-            PerformNonStrafingAnimation();
-        }
-    }
-
-    private void SetStrafingAndStrafingSpeed()
-    {
-        isStrafing = movementVector != rotationVector;
-        movement.SetStrafingSpeed(isStrafing);
-    }
-
-    private void CollectInputs()
-    {
-        movementVector = inputManager.GetMovementVector();
-        rotationVector = inputManager.GetRotationVector();
-    }
-
-    private void PerformNonStrafingAnimation()
-    {
-        animator.SetBool(isStrafingHash, isStrafing);
-        animator.SetFloat(zVelocityHash, inputManager.GetMovementVector().magnitude);
-    }
-
-    private void PerformStrafingAnimation()
-    {
-        animator.SetBool(isStrafingHash, isStrafing);
-        animator.SetFloat(xVelocityHash, strafingVector.x);
-        animator.SetFloat(zVelocityHash, strafingVector.y);
-    }
 
     #endregion
 
@@ -187,13 +190,4 @@ public class AnimationController : MonoBehaviour
 
 
     // ===========================================
-
-
-
-    #region Public Methods
-
-    public bool GetIsFiringTriggered() => isFireTriggered;
-
-    #endregion
-
 }

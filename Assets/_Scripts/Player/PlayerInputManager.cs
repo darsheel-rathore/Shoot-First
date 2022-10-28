@@ -39,8 +39,6 @@ public class PlayerInputManager : MonoBehaviour
                 movementStick.Vertical
             );
         }
-
-        if (rotationVector == Vector3.zero) rotationVector = movementVector;
     }
 
     public Vector3 GetMovementVector() => movementVector;

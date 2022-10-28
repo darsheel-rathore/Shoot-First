@@ -59,6 +59,8 @@ public class Movement : MonoBehaviour
     private void HandlePlayerRotation()
     {
         rotationVector = inputManager.GetRotationVector();
+        rotationVector = (rotationVector == Vector3.zero) ? inputManager.GetMovementVector() : rotationVector;
+
         if (rotationVector.magnitude <= 0.01f) return;
 
         rotationVector = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f) * rotationVector;
