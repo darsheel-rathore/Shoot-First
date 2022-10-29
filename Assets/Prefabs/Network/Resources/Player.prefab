@@ -2776,6 +2776,7 @@ GameObject:
   - component: {fileID: 3449326171801917102}
   - component: {fileID: -1426347599241817942}
   - component: {fileID: 8848744628388788919}
+  - component: {fileID: -1555221836785599347}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2890,8 +2891,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba63e5009c38af84aae24abb6815515a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementStick: {fileID: 0}
-  rotationStick: {fileID: 0}
 --- !u!114 &3449326171801917102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2909,7 +2908,6 @@ MonoBehaviour:
   projectile: {fileID: 8085075273638985182, guid: 725df5b7ee63f354aae65d816e815325,
     type: 3}
   projectileSpeed: 40
-  bulletParent: {fileID: 0}
   damageAmount: 15
 --- !u!114 &-1426347599241817942
 MonoBehaviour:
@@ -3024,6 +3022,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1555221836785599347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8848744627624155883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8859816708585667681
 GameObject:
   m_ObjectHideFlags: 0

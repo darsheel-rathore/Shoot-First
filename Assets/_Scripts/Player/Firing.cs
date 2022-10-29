@@ -8,14 +8,16 @@ public class Firing : MonoBehaviour
     [SerializeField] private Transform bulletFirePositionTransform;
     [SerializeField] private GameObject projectile;
     [SerializeField] private float projectileSpeed;
-    [SerializeField] private Transform bulletParent;
     [SerializeField] private float damageAmount = 15f;
 
+
+    private Transform bulletParent;
     private AudioSource audioSource;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        bulletParent = GameObject.FindGameObjectWithTag("BulletParent").transform;
     }
 
     // animation callback

@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    [SerializeField] private DynamicJoystick movementStick;
-    [SerializeField] private DynamicJoystick rotationStick;
+    private DynamicJoystick movementStick;
+    private DynamicJoystick rotationStick;
 
     private Vector3 movementVector;
     private Vector3 rotationVector;
+
+    private void Start()
+    {
+        movementStick = JoyStickInit.Instance.GetJoySticks().movementStick;
+        rotationStick = JoyStickInit.Instance.GetJoySticks().rotationStick;
+    }
 
     private void Update()
     {
