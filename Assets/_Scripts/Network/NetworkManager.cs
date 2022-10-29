@@ -120,6 +120,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
 
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        CheckPlayerCountToLoadGameScene();
+    }
+
+
     #endregion
 
 
