@@ -17,6 +17,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private TextMeshProUGUI regionText;
     [SerializeField] private TextMeshProUGUI connectionStatusText;
+    [SerializeField] private TextMeshProUGUI nickNameText;
+    [SerializeField] private TMP_InputField nickNameInputText;
+
+
+    // ======================================
+
 
     private void Start() 
     {
@@ -27,6 +33,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         UpdateNetworkStatus();
     }
+
+
+    // ======================================
 
 
     private void EnablePanel(string panelName)
@@ -43,13 +52,54 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
 
+    // ======================================
+
+
     #region Photon Callbacks
 
     public override void OnConnectedToMaster()
     {
-        connectionPanel.SetActive(false);
         regionText.text = "Region: " + PhotonNetwork.CloudRegion;
+        nickNameText.text = "YOU: " + PhotonNetwork.NickName;
+
+        EnablePanel(gameTypePanel.name);
     }
+
+    #endregion
+
+
+    // ======================================
+
+
+    #region Public Callbacks
+
+    public void __GenerateRandomName()
+    {
+        string pName = "p_Name_" + GetRandomNumer();
+        nickNameInputText.text = pName;
+    }
+
+    public void __JoinWithNickName()
+    {
+        string pName = nickNameInputText.text;
+        pName = (string.IsNullOrEmpty(pName)) ? "p_Name_" + GetRandomNumer() : pName;
+        nickNameInputText.text = pName;
+
+        PhotonNetwork.NickName = pName;
+        PhotonNetwork.ConnectUsingSettings();
+
+        EnablePanel(connectionPanel.name);
+    }
+
+    #endregion
+
+
+    // ======================================
+
+
+    #region Helpers
+
+    private int GetRandomNumer() => Random.Range(0, 1001);
 
     #endregion
 

@@ -206,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 100827689}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1431461710}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: __JoinWithNickName
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &100827689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1237,7 +1249,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 355270697}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1431461710}
+        m_TargetAssemblyTypeName: NetworkManager, Assembly-CSharp
+        m_MethodName: __GenerateRandomName
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &355270697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1699,7 +1723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &792289857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2343,7 +2367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1319383996
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2855,6 +2879,8 @@ MonoBehaviour:
   joinCreateRoomPanel: {fileID: 1319383995}
   regionText: {fileID: 800465715}
   connectionStatusText: {fileID: 2126955414}
+  nickNameText: {fileID: 270272024}
+  nickNameInputText: {fileID: 1393320662}
 --- !u!4 &1431461711
 Transform:
   m_ObjectHideFlags: 0
@@ -3628,7 +3654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1890227227
 RectTransform:
   m_ObjectHideFlags: 0
