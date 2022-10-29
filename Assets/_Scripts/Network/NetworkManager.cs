@@ -15,7 +15,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject joinCreateRoomPanel;
     [SerializeField] private GameObject joiningRoomPanel;
     [SerializeField] private GameObject creatingRoomPanel;
-    [SerializeField] private GameObject createdRoomPanel;
     [SerializeField] private GameObject joinedRoomPanel;
     [SerializeField] private GameObject joinRoomFailedPanel;
 
@@ -25,6 +24,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private TextMeshProUGUI connectionStatusText;
     [SerializeField] private TextMeshProUGUI nickNameText;
     [SerializeField] private TMP_InputField nickNameInputText;
+    [SerializeField] private TextMeshProUGUI roomNameText;
+    [SerializeField] private TextMeshProUGUI playerCountText;
+
+
+    [SerializeField] private int gameSceneIndex;
 
 
     // ======================================
@@ -32,6 +36,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     private void Start() 
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         EnablePanel(nickNamePanel.name);
     }
 
@@ -52,7 +57,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         joinCreateRoomPanel.SetActive(joinCreateRoomPanel.name == panelName);
         joiningRoomPanel.SetActive(joiningRoomPanel.name == panelName);
         creatingRoomPanel.SetActive(creatingRoomPanel.name == panelName);
-        createdRoomPanel.SetActive(createdRoomPanel.name == panelName);
         joinedRoomPanel.SetActive(joinedRoomPanel.name == panelName);
         joinRoomFailedPanel.SetActive(joinRoomFailedPanel.name == panelName);
     }
@@ -60,6 +64,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private void UpdateNetworkStatus()
     {
         connectionStatusText.text = "Status: " + PhotonNetwork.NetworkClientState.ToString();
+    }
+
+
+
+    private void CheckPlayerCountToLoadGameScene()
+    {
+        int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        int maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers;
+        if (playerCount == 1)
+        {
+            roomNameText.text = PhotonNetwork.CurrentRoom.Name;
+            playerCountText.text = playerCount + " / " + maxPlayers;
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel(gameSceneIndex);
+        }
     }
 
 
@@ -77,18 +98,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
 
 
-    public override void OnCreatedRoom()
-    {
-        base.OnCreatedRoom();
-        EnablePanel(createdRoomPanel.name); 
-        Debug.Log("test_created");
-    }
-
-
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
-        Debug.Log("Creating room failed... Retrying");
         __CreateRoom();
     }
 
@@ -104,6 +116,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         EnablePanel(joinedRoomPanel.name);
+        CheckPlayerCountToLoadGameScene();
     }
 
 
