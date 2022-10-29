@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class GameSceneNetworkManager : MonoBehaviour
@@ -10,8 +12,12 @@ public class GameSceneNetworkManager : MonoBehaviour
 
     private void Start() 
     {
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnpointList.GetChild(GetRandomIndex()).position, Quaternion.identity);
+        PhotonNetwork.Instantiate(playerPrefab.name, spawnpointList.GetChild(GetSpawnIndex()).position, Quaternion.identity);
     }
 
-    private int GetRandomIndex() => Random.Range(0, spawnpointList.childCount);
+    private int GetSpawnIndex()
+    {
+        var playerList = PhotonNetwork.PlayerList;
+        return Array.IndexOf(playerList, PhotonNetwork.LocalPlayer);
+    }
 }
