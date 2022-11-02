@@ -29,7 +29,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
     [SerializeField] private int gameSceneIndex;
-
+    [SerializeField] private bool _testingSinglePlayer;
 
     // ======================================
 
@@ -72,12 +72,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         int playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
         int maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers;
+        
         if (playerCount == 1)
         {
             roomNameText.text = PhotonNetwork.CurrentRoom.Name;
             playerCountText.text = playerCount + " / " + maxPlayers;
         }
         else
+        {
+            PhotonNetwork.LoadLevel(gameSceneIndex);
+        }
+
+        if (_testingSinglePlayer)
         {
             PhotonNetwork.LoadLevel(gameSceneIndex);
         }
