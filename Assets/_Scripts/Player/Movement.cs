@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -31,6 +32,8 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GetComponent<PhotonView>().IsMine) return;
+
         HandlePlayerMovement();
         HandlePlayerRotation();
     }

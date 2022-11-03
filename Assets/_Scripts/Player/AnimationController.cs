@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class AnimationController : MonoBehaviour
@@ -58,6 +59,8 @@ public class AnimationController : MonoBehaviour
 
     private void Update()
     {
+        if (!GetComponent<PhotonView>().IsMine) return;
+
         CollectInputs();
 
         SetStrafingAndStrafingSpeed();
