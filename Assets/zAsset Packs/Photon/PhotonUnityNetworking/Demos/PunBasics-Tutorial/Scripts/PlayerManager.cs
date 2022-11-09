@@ -140,6 +140,9 @@ namespace Photon.Pun.Demo.PunBasics
                 {
                     this.leavingRoom = GameManager.Instance.LeaveRoom();
                 }
+
+                if (Input.GetKeyDown(KeyCode.O))
+                    testValue -= 1;
             }
 
             if (this.beams != null && this.IsFiring != this.beams.activeInHierarchy)
@@ -272,6 +275,8 @@ namespace Photon.Pun.Demo.PunBasics
 
         #endregion
 
+        public int testValue = 50;
+
         #region IPunObservable implementation
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -281,12 +286,14 @@ namespace Photon.Pun.Demo.PunBasics
                 // We own this player: send the others our data
                 stream.SendNext(this.IsFiring);
                 stream.SendNext(this.Health);
+                stream.SendNext(this.testValue);
             }
             else
             {
                 // Network player, receive data
                 this.IsFiring = (bool)stream.ReceiveNext();
                 this.Health = (float)stream.ReceiveNext();
+                this.testValue = (int)stream.ReceiveNext();
             }
         }
 

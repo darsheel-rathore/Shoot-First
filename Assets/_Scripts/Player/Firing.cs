@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class Firing : MonoBehaviour
+public class Firing : MonoBehaviourPun
 {
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private Transform bulletFirePositionTransform;
@@ -23,6 +24,15 @@ public class Firing : MonoBehaviour
     // animation callback
     private void _Fire()
     {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("FireRPC", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    private void FireRPC()
+    {
         muzzleFlash.Play();
         Projectile bullet = Instantiate(projectile, bulletFirePositionTransform.position,
                             bulletFirePositionTransform.rotation, bulletParent)
@@ -30,7 +40,7 @@ public class Firing : MonoBehaviour
         bullet.SetProjectileSpeed(projectileSpeed);
         bullet.SetStartMoving(true);
         bullet.SetDamageAmount(damageAmount);
-        
+
         audioSource.Play();
     }
 

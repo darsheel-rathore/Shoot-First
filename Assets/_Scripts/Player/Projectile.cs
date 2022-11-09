@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -21,7 +22,9 @@ public class Projectile : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
-            other.GetComponent<Health>().TakeDamage(damageAmount);
+            PhotonView pv = other.GetComponent<PhotonView>();
+            Health health = other.GetComponent<Health>();
+            pv.RPC("TakeDamage", RpcTarget.AllBuffered, damageAmount);
         }
     }
 
