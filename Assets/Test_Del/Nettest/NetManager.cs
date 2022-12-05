@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class NetManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     GameObject player;
+    public const string DAMAGE = "damageCaused";
 
     void Start() 
     {
@@ -27,11 +29,16 @@ public class NetManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom("R_Name", roomOptions, TypedLobby.Default, expectedUsers: null);
     }
 
+
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+
+        //CustomPropertyTesting();
+
         PhotonNetwork.Instantiate(player.name, RandomPosition(), Quaternion.identity);
     }
+
 
     private Vector3 RandomPosition()
     {
@@ -44,4 +51,21 @@ public class NetManager : MonoBehaviourPunCallbacks
         return position;
     }
 
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        int scoreBoard = (int)changedProps[PunPlayerScores.PlayerScoreProp];
+        Debug.Log($"Player: {targetPlayer}, Score: {scoreBoard}");
+    }
+
+
+    private static void CustomPropertyTesting()
+    {
+        ExitGames.Client.Photon.Hashtable damageScore = new ExitGames.Client.Photon.Hashtable()
+        {
+            { DAMAGE, 0 }
+        };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(damageScore);
+    }
 }

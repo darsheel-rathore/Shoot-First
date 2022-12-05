@@ -167,8 +167,9 @@ MonoBehaviour:
     type: 3}
   projectileTransform: {fileID: 680336723}
   health: 100
-  myNumberInList: -10
-  testValue: 50
+  damageDone: 0
+  kills: 0
+  playerScore: 0
 --- !u!114 &3498150620507785016
 MonoBehaviour:
   m_ObjectHideFlags: 0

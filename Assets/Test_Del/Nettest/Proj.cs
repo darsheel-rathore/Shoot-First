@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class Proj : MonoBehaviour
 {
-
+    Player firePlayer;
     private bool shouldInitiateRPC = false;
+    public int damageAmount = 10;
 
     private void Start()
     {
@@ -29,12 +31,13 @@ public class Proj : MonoBehaviour
         {
             if (shouldInitiateRPC)
             {
-                other.GetComponent<PlayerMove>().TakeSphereDamage(10);
+                other.GetComponent<PlayerMove>().TakeSphereDamage(damageAmount, firePlayer);
             }
             Destroy(this.gameObject);
         }
     }
 
     public void SetInitiateRPC(bool value) => shouldInitiateRPC = value;
+    public void SetFireFromPlayer(Player fromPlayer) => firePlayer = fromPlayer;
 
 }
