@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -11,24 +12,28 @@ public class Projectile : MonoBehaviour
     private Vector3 forwardDirection;
     private float damageAmount;
 
+    private bool shouldInitiateRPC = false;
+
     private void Update()
     {
         if (!startMoving) return;
 
-        transform.position += transform.forward * projectileSpeed * Time.deltaTime;
+        transform.position += projectileSpeed * Time.deltaTime * transform.forward;
     }
 
     private void OnTriggerEnter(Collider other) 
     {
         if (other.transform.CompareTag("Player"))
         {
-            PhotonView pv = other.GetComponent<PhotonView>();
-            Health health = other.GetComponent<Health>();
-            pv.RPC("TakeDamage", RpcTarget.AllBuffered, damageAmount);
+            if (shouldInitiateRPC)
+            {
+                other.GetComponent<Health>().TakeBulletDamage(damageAmount);
+            }
         }
     }
 
     public void SetProjectileSpeed(float speed) => projectileSpeed = speed;
     public void SetStartMoving(bool isMoving) => startMoving = isMoving;
     public void SetDamageAmount(float damageAmount) => this.damageAmount = damageAmount;
+    public void SetShouldInititeRPC(bool initiateRPC) => shouldInitiateRPC = initiateRPC;
 }

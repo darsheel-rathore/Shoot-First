@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviourPun
+public class Health : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private Color fullHealthColor;
@@ -38,6 +40,11 @@ public class Health : MonoBehaviourPun
         if (currentHealth <= 0) Die();
     }
 
+    internal void TakeBulletDamage(float damageAmount)
+    {
+        this.photonView.RPC("TakeDamage", RpcTarget.All, damageAmount);
+    }
+
     private void SetHealthUI()
     {
         healthSlider.value = currentHealth;
@@ -54,4 +61,16 @@ public class Health : MonoBehaviourPun
     }
 
     private void RestoreHealth() => currentHealth = maxHealth;
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(this.currentHealth);
+        }
+        else if (stream.IsReading)
+        {
+            this.currentHealth = (float)stream.ReceiveNext();
+        }
+    }
 }

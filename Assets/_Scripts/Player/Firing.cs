@@ -39,7 +39,9 @@ public class Firing : MonoBehaviourPun
                             .GetComponent<Projectile>();
         bullet.SetProjectileSpeed(projectileSpeed);
         bullet.SetStartMoving(true);
+
         bullet.SetDamageAmount(damageAmount);
+        bullet.SetShouldInititeRPC(this.photonView.IsMine);
 
         audioSource.Play();
     }
