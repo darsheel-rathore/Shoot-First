@@ -42,6 +42,7 @@ public class Firing : MonoBehaviourPun
 
         bullet.SetDamageAmount(damageAmount);
         bullet.SetShouldInititeRPC(this.photonView.IsMine);
+        bullet.SetFirePlayer(PhotonNetwork.LocalPlayer);
 
         audioSource.Play();
     }

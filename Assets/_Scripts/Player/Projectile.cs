@@ -13,6 +13,7 @@ public class Projectile : MonoBehaviour
     private float damageAmount;
 
     private bool shouldInitiateRPC = false;
+    private Player playerWhoFired;
 
     private void Update()
     {
@@ -27,7 +28,7 @@ public class Projectile : MonoBehaviour
         {
             if (shouldInitiateRPC)
             {
-                other.GetComponent<Health>().TakeBulletDamage(damageAmount);
+                other.GetComponent<Health>().TakeBulletDamage(damageAmount, playerWhoFired);
             }
         }
     }
@@ -36,4 +37,5 @@ public class Projectile : MonoBehaviour
     public void SetStartMoving(bool isMoving) => startMoving = isMoving;
     public void SetDamageAmount(float damageAmount) => this.damageAmount = damageAmount;
     public void SetShouldInititeRPC(bool initiateRPC) => shouldInitiateRPC = initiateRPC;
+    public void SetFirePlayer(Player firingPlayer) => playerWhoFired = firingPlayer;
 }

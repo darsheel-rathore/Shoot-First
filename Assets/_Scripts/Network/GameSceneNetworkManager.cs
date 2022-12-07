@@ -5,8 +5,9 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class GameSceneNetworkManager : MonoBehaviour
+public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
 {
+
     [SerializeField] Transform spawnpointList;
     [SerializeField] GameObject playerPrefab;
 
@@ -19,5 +20,11 @@ public class GameSceneNetworkManager : MonoBehaviour
     {
         var playerList = PhotonNetwork.PlayerList;
         return Array.IndexOf(playerList, PhotonNetwork.LocalPlayer);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        Debug.Log($"Name: {targetPlayer} Score: {changedProps}");
     }
 }

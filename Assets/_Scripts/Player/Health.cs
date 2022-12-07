@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +25,6 @@ public class Health : MonoBehaviourPun, IPunObservable
         SetHealthUI();
     }
 
-
     [PunRPC]
     public void TakeDamage(float damageAmount)
     {
@@ -40,14 +40,16 @@ public class Health : MonoBehaviourPun, IPunObservable
         if (currentHealth <= 0) Die();
     }
 
-    internal void TakeBulletDamage(float damageAmount)
+    internal void TakeBulletDamage(float damageAmount, Player playerWhoFired)
     {
-        this.photonView.RPC("TakeDamage", RpcTarget.All, damageAmount);
+        this.photonView.RPC("TakeDamage", RpcTarget.AllViaServer, damageAmount);
+        playerWhoFired.AddScore((int)damageAmount);
     }
 
-    private void SetHealthUI()
+    public void SetHealthUI()
     {
         healthSlider.value = currentHealth;
+        
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentHealth / maxHealth);
     }
 
