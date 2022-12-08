@@ -4400,7 +4400,7 @@ MonoBehaviour:
   roomNameText: {fileID: 1218186276}
   playerCountText: {fileID: 212750276}
   gameSceneIndex: 1
-  _testingSinglePlayer: 0
+  _testingSinglePlayer: 1
 --- !u!4 &1431461711
 Transform:
   m_ObjectHideFlags: 0

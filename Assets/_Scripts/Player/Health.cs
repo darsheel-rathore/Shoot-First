@@ -49,7 +49,7 @@ public class Health : MonoBehaviourPun, IPunObservable
     public void SetHealthUI()
     {
         healthSlider.value = currentHealth;
-        
+
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, currentHealth / maxHealth);
     }
 
