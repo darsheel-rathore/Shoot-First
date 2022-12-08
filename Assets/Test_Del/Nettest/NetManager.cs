@@ -34,8 +34,6 @@ public class NetManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
 
-        //CustomPropertyTesting();
-
         PhotonNetwork.Instantiate(player.name, RandomPosition(), Quaternion.identity);
     }
 
@@ -55,17 +53,16 @@ public class NetManager : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
-        int scoreBoard = (int)changedProps[PunPlayerScores.PlayerScoreProp];
-        Debug.Log($"Player: {targetPlayer}, Score: {scoreBoard}");
+
+        if (changedProps.ContainsKey(PunPlayerScores.PlayerScoreProp))
+            Debug.Log($"Player: {targetPlayer.ActorNumber} || Prop: {changedProps[PunPlayerScores.PlayerScoreProp]}");
+
+        if (changedProps.ContainsKey("kill"))
+            Debug.Log($"Player: {targetPlayer.ActorNumber} || Prop: {changedProps["kill"]}");
+
+        Debug.Log("=================");
+
     }
 
 
-    private static void CustomPropertyTesting()
-    {
-        ExitGames.Client.Photon.Hashtable damageScore = new ExitGames.Client.Photon.Hashtable()
-        {
-            { DAMAGE, 0 }
-        };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(damageScore);
-    }
 }

@@ -49,10 +49,13 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
-        
+
+        //DebugCode(targetPlayer, changedProps);
+
         GameObject scorecardToUpdate = scorecardDict[targetPlayer];
         UpdateScoreboardProperties(scorecardToUpdate, changedProps);
     }
+
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -101,6 +104,28 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
         scorecardDict.Remove(playerToRemove);
         Destroy(scorecardToRemove);
     }
+
+    #endregion
+
+
+    #region Debug Code
+
+    //private static void DebugCode(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    //{
+    //    foreach (var item in changedProps.Keys)
+    //    {
+    //        Debug.Log("KEYS: -- Player: " + targetPlayer.ActorNumber + " || " + item.ToString());
+    //    }
+
+    //    if (targetPlayer.CustomProperties.ContainsKey("playerKills"))
+    //        Debug.Log($"Player: {targetPlayer.ActorNumber} || Kills: {changedProps["playerKills"]}");
+
+    //    if (targetPlayer.CustomProperties.ContainsKey(PunPlayerScores.PlayerScoreProp))
+    //        Debug.Log($"Player: {targetPlayer.ActorNumber} || Score: {changedProps[PunPlayerScores.PlayerScoreProp]}");
+
+    //    Debug.Log("=========");
+    //}
+
 
     #endregion
 }

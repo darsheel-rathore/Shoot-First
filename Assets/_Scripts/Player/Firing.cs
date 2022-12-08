@@ -9,7 +9,7 @@ public class Firing : MonoBehaviourPun
     [SerializeField] private Transform bulletFirePositionTransform;
     [SerializeField] private GameObject projectile;
     [SerializeField] private float projectileSpeed;
-    [SerializeField] private float damageAmount = 15f;
+    [SerializeField] private int damageAmount = 15;
 
 
     private Transform bulletParent;

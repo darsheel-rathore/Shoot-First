@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     private bool startMoving = false;
 
     private Vector3 forwardDirection;
-    private float damageAmount;
+    private int damageAmount;
 
     private bool shouldInitiateRPC = false;
     private Player playerWhoFired;
@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
 
     public void SetProjectileSpeed(float speed) => projectileSpeed = speed;
     public void SetStartMoving(bool isMoving) => startMoving = isMoving;
-    public void SetDamageAmount(float damageAmount) => this.damageAmount = damageAmount;
+    public void SetDamageAmount(int damageAmount) => this.damageAmount = damageAmount;
     public void SetShouldInititeRPC(bool initiateRPC) => shouldInitiateRPC = initiateRPC;
     public void SetFirePlayer(Player firingPlayer) => playerWhoFired = firingPlayer;
 }

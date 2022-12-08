@@ -21,10 +21,16 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
     public int playerScore = 0;
     Player thisPlayer;
 
-    ExitGames.Client.Photon.Hashtable property = new ExitGames.Client.Photon.Hashtable();
+    ExitGames.Client.Photon.Hashtable killed = new ExitGames.Client.Photon.Hashtable();
 
     void Start()
     {
+        if (photonView.IsMine)
+        {
+            killed["kill"] = 0;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(killed);
+        }
+
         rb = GetComponent<Rigidbody>();
 
         foreach (Player player in PhotonNetwork.PlayerList)
@@ -47,7 +53,9 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
             photonView.RPC("ShootSphere", RpcTarget.All, thisPlayer);
         }
 
-        //CustomPropertyTest();
+        if (Input.GetKeyDown(KeyCode.RightShift))
+            CallbackExecutionTimeTest(PhotonNetwork.LocalPlayer);
+
     }
 
 
@@ -79,16 +87,52 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
 
     public void TakeSphereDamage(float damageAmount, Player firePlayer)
     {
-        this.photonView.RPC("_DealDamageWithSphereRPC", RpcTarget.All, damageAmount);
-        firePlayer.AddScore(10);
+        this.photonView.RPC("_DealDamageWithSphereRPC", RpcTarget.All, damageAmount, firePlayer);
     }
 
 
     [PunRPC]
-    public void _DealDamageWithSphereRPC(float damageAmount)
+    public void _DealDamageWithSphereRPC(float damageAmount, Player playerFire)
     {
+        if (photonView.IsMine)
+        {
+            playerFire.AddScore(10);
+        }
         health -= damageAmount;
-        if (health <= 0) health = 0f;
+        if (health <= 50) DieMethod(playerFire);
+    }
+
+    bool isDead = false;
+    private void DieMethod(Player playerFire)
+    {
+        if (isDead) return;
+
+        if (photonView.IsMine)
+        {
+            UpdateKillProp(playerFire);
+        }
+
+        Debug.Log("DEAD");
+
+    }
+
+    private void CallbackExecutionTimeTest(Player player)
+    {
+        UpdateKillProp(player);
+        player.AddScore(10);
+    }
+
+    private void UpdateKillProp(Player playerFire)
+    {
+        var updateProp = playerFire.CustomProperties;
+        int countKill = (int)updateProp["kill"];
+        //int countScore = (int)updateProp[PunPlayerScores.PlayerScoreProp] + 10;
+        playerFire.AddScore(10);
+
+        countKill++;
+        updateProp["kill"] = countKill;
+        //updateProp[PunPlayerScores.PlayerScoreProp] = countScore;
+        playerFire.SetCustomProperties(updateProp);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -105,16 +149,5 @@ public class PlayerMove : MonoBehaviourPun, IPunObservable
 
     public float GetHealth() => health;
 
-    private void CustomPropertyTest()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("damageCaused"))
-            {
-                property["damageCaused"] = UnityEngine.Random.Range(0, 1000);
-                PhotonNetwork.LocalPlayer.SetCustomProperties(property);
-            }
-        }
-    }
 
 }
