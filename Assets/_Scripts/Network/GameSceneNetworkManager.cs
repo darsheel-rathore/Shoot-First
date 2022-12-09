@@ -10,6 +10,7 @@ using Random = UnityEngine.Random;
 
 public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
 {
+    public static GameSceneNetworkManager Instance;
 
     [SerializeField] Transform spawnpointList;
     [SerializeField] GameObject playerPrefab;
@@ -17,11 +18,28 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] Transform scorecardParent;
     [SerializeField] GameObject scorecardPrefab;
     [SerializeField] GameObject scoreBoard;
-    bool scoreBoardOpen = false;
+    private bool scoreBoardOpen = false;
 
     public Dictionary<Player, GameObject> scorecardDict = new Dictionary<Player, GameObject>();
 
-    private void Start() 
+    [SerializeField] GameObject leaveGamePanel;
+    [SerializeField] GameObject gameoverPanel;
+    [SerializeField] GameObject confirmLeaveGamePanel;
+    [SerializeField] TextMeshProUGUI killTxt, damageTxt;
+    [SerializeField] GameObject gameCanvas;
+    [SerializeField] GameObject scoreBoardBtn, leaveGameOptnBtn;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(Instance.gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
+    private void Start()
     {
         PhotonNetwork.Instantiate(playerPrefab.name, spawnpointList.GetChild(GetSpawnIndex()).position, Quaternion.identity);
 
@@ -38,11 +56,68 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
     }
 
 
+    public void GameOver()
+    {
+        leaveGameOptnBtn.SetActive(false);
+        scoreBoardBtn.SetActive(false);
+
+        gameCanvas.SetActive(false);
+        gameoverPanel.SetActive(true);
+        Player p = PhotonNetwork.LocalPlayer;
+
+        if (p.CustomProperties.ContainsKey("playerKills"))
+            killTxt.text = "KILLS - " + p.CustomProperties["playerKills"].ToString();
+
+        if (p.CustomProperties.ContainsKey(PunPlayerScores.PlayerScoreProp))
+            damageTxt.text = "DAMAGE - " + p.CustomProperties[PunPlayerScores.PlayerScoreProp].ToString();
+
+        StartCoroutine(LeaveGameRouting());
+    }
+
+    private IEnumerator LeaveGameRouting()
+    {
+        yield return new WaitForSeconds(5f);
+        PhotonNetwork.LeaveRoom();
+    }
+
+
+    #region Public Callbacks
+
     public void _ScoreBoardToggleBtn()
     {
         scoreBoardOpen = !scoreBoardOpen;
         scoreBoard.SetActive(scoreBoardOpen);
+        gameCanvas.SetActive(!scoreBoardOpen);
+        leaveGameOptnBtn.SetActive(!scoreBoardOpen);
     }
+
+
+    public void _LeaveGameOptionBtn()
+    {
+        gameCanvas.SetActive(false);
+        leaveGamePanel.SetActive(true);
+        scoreBoardBtn.SetActive(false);
+    }
+
+
+    public void _LeaveGameConfirmBtn()
+    {
+        leaveGamePanel.SetActive(false);
+        confirmLeaveGamePanel.SetActive(true);
+        PhotonNetwork.LeaveRoom();
+    }
+
+
+    public void _CancelLeaveGameBtn()
+    {
+        gameCanvas.SetActive(true);
+        leaveGamePanel.SetActive(false);
+        scoreBoardBtn.SetActive(true);
+    }
+
+
+    #endregion
+
 
     #region Photon Callbacks
 
@@ -67,6 +142,13 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
     {
         base.OnPlayerLeftRoom(otherPlayer);
         RemovePlayer(otherPlayer);
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        PhotonNetwork.LocalPlayer.CustomProperties.Clear();
+        PhotonNetwork.LoadLevel(0);
     }
 
 

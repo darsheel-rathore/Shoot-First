@@ -75,10 +75,10 @@ public class Health : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine)
         {
             UpdateKillProperty(playerFired);
+            GameSceneNetworkManager.Instance.GameOver();
         }
 
-
-        Debug.Log("Dead -" + this.gameObject);
+        //Debug.Log("Dead -" + this.gameObject);
         gameObject.SetActive(false);
         isDead = true;
     }
@@ -86,8 +86,21 @@ public class Health : MonoBehaviourPun, IPunObservable
     private void UpdateKillProperty(Player playerFired)
     {
         var updateProp = playerFired.CustomProperties;
+        int scoreCount = 0;
+
+        // if the first bullet makes the kill then,
+        // there is no prop created for this at this point
+        if (!playerFired.CustomProperties.ContainsKey(PunPlayerScores.PlayerScoreProp))
+        {
+            scoreCount = 0;
+        }
+        else
+        {
+            scoreCount = (int)updateProp[PunPlayerScores.PlayerScoreProp];
+        }
+
+
         int killCount = (int)updateProp["playerKills"];
-        int scoreCount = (int)updateProp[PunPlayerScores.PlayerScoreProp];
 
         scoreCount += 15;
         killCount += 1;
