@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
@@ -29,6 +30,8 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject gameCanvas;
     [SerializeField] GameObject scoreBoardBtn, leaveGameOptnBtn;
 
+    [SerializeField] CinemachineVirtualCamera virtualCamera;
+
     private void Awake()
     {
         if (Instance != null)
@@ -41,7 +44,8 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnpointList.GetChild(GetSpawnIndex()).position, Quaternion.identity);
+        GameObject g = PhotonNetwork.Instantiate(playerPrefab.name, spawnpointList.GetChild(GetSpawnIndex()).position, Quaternion.identity);
+        virtualCamera.Follow = g.transform;
 
         foreach (Player player in PhotonNetwork.PlayerList)
         {
