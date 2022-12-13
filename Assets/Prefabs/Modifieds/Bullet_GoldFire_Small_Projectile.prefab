@@ -14498,6 +14498,7 @@ GameObject:
   - component: {fileID: 8283700017928741550}
   - component: {fileID: -8676737533290079070}
   - component: {fileID: 2648345842789740580}
+  - component: {fileID: -8479395756227067703}
   m_Layer: 0
   m_Name: Bullet_GoldFire_Small_Projectile
   m_TagString: FX
@@ -19437,6 +19438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97f859bd5337a94d888312253b71d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBeforeDeactivation: 2
 --- !u!65 &2648345842789740580
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19450,3 +19452,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.40715027, y: 0.26959205, z: 1}
   m_Center: {x: 0.029061317, y: 0.03002894, z: 0}
+--- !u!54 &-8479395756227067703
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085075273638985182}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

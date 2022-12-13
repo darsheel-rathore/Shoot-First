@@ -15,6 +15,7 @@ public class Health : MonoBehaviourPun, IPunObservable
     [SerializeField] private Color zeroHealthColor;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Image fillImage;
+    [SerializeField] private AudioSource audioSource;
 
     private float currentHealth = 100;
     private int damageAmount = 0;
@@ -51,6 +52,8 @@ public class Health : MonoBehaviourPun, IPunObservable
 
     internal void TakeBulletDamage(int damageAmount, Player playerWhoFired)
     {
+        audioSource.Play();
+
         this.damageAmount = damageAmount;
         this.photonView.RPC("TakeDamage", RpcTarget.AllViaServer, damageAmount, playerWhoFired);
         UpdateDamageProperty(damageAmount, playerWhoFired);

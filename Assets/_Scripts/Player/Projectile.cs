@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField] private float timeBeforeDeactivation;
+
     private float projectileSpeed = 5f;
     private bool startMoving = false;
 
@@ -14,6 +16,13 @@ public class Projectile : MonoBehaviour
 
     private bool shouldInitiateRPC = false;
     private Player playerWhoFired;
+
+
+
+    private void Start()
+    {
+        Invoke("Deactivate", timeBeforeDeactivation);
+    }
 
     private void Update()
     {
@@ -31,7 +40,10 @@ public class Projectile : MonoBehaviour
                 other.GetComponent<Health>().TakeBulletDamage(damageAmount, playerWhoFired);
             }
         }
+        this.gameObject.SetActive(false);
     }
+
+    private void Deactivate() => this.gameObject.SetActive(false);
 
     public void SetProjectileSpeed(float speed) => projectileSpeed = speed;
     public void SetStartMoving(bool isMoving) => startMoving = isMoving;

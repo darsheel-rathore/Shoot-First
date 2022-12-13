@@ -135,7 +135,6 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
         UpdateScoreboardProperties(scorecardToUpdate, changedProps);
     }
 
-
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
