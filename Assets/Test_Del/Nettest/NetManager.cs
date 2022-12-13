@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class NetManager : MonoBehaviourPunCallbacks
 {
@@ -29,14 +32,13 @@ public class NetManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom("R_Name", roomOptions, TypedLobby.Default, expectedUsers: null);
     }
 
-
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-
+        GetComponent<CountdownTimer>().enabled = true;
         PhotonNetwork.Instantiate(player.name, RandomPosition(), Quaternion.identity);
-    }
 
+    }
 
     private Vector3 RandomPosition()
     {
@@ -48,7 +50,6 @@ public class NetManager : MonoBehaviourPunCallbacks
 
         return position;
     }
-
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
@@ -65,4 +66,39 @@ public class NetManager : MonoBehaviourPunCallbacks
     }
 
 
+    public TextMeshProUGUI timerText;
+    public Image timerImage;
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        CountdownTimer.OnCountdownTimerHasExpired += Expired;
+    }
+
+    private void Expired()
+    {
+        timerImage.enabled = true;
+        Debug.Log("Timer Has finished and completed.");
+        StartCoroutine(DisableImage());
+    }
+
+    private IEnumerator DisableImage()
+    {
+        yield return new WaitForSeconds(2f);
+        timerImage.enabled = false;
+    }
+
+    public void __TestMethodBtn()
+    {
+        GetComponent<CountdownTimer>().enabled = true;
+        Hashtable hashtable = new Hashtable();
+        hashtable[CountdownTimer.CountdownStartTime] = PhotonNetwork.ServerTimestamp;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
+        CountdownTimer.SetStartTime();
+    }
+
+    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
+    {
+        base.OnRoomPropertiesUpdate(propertiesThatChanged);
+    }
 }

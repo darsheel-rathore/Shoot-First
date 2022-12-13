@@ -101,7 +101,7 @@ namespace Photon.Pun.UtilityScripts
         private void OnTimerEnds()
         {
             this.isTimerRunning = false;
-            this.enabled = false;
+            //this.enabled = false;
 
             Debug.Log("Emptying info text.", this.Text);
             this.Text.text = string.Empty;
@@ -124,7 +124,6 @@ namespace Photon.Pun.UtilityScripts
             {
                 this.startTime = propStartTime;
                 Debug.Log("Initialize sets StartTime " + this.startTime + " server time now: " + PhotonNetwork.ServerTimestamp + " remain: " + TimeRemaining());
-
 
                 this.isTimerRunning = TimeRemaining() > 0;
 
@@ -172,5 +171,6 @@ namespace Photon.Pun.UtilityScripts
 
             Debug.Log("Set Custom Props for Time: "+ props.ToStringFull() + " wasSet: "+wasSet);
         }
+
     }
 }
