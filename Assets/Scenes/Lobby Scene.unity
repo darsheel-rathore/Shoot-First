@@ -5952,6 +5952,10 @@ MonoBehaviour:
   audioSource: {fileID: 2131423711}
   lobbySceneClip: {fileID: 8300000, guid: 3d48ccdcd960b43cf88722b46569106c, type: 3}
   mpSceneClip: {fileID: 8300000, guid: 3e793a7a35c5a4164848df73a644d1e3, type: 3}
+  transitionSpeed: 2.2
+  minVolume: 0.1
+  maxVolume: 1
+  lerpThreshold: 0.05
 --- !u!4 &2131423710
 Transform:
   m_ObjectHideFlags: 0
