@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 4713333779746000}
   - component: {fileID: 33638302703156238}
   - component: {fileID: 23194004214046134}
-  - component: {fileID: 990282983661062272}
   m_Layer: 0
   m_Name: SM_Prop_WireFence_01
   m_TagString: Untagged
@@ -168,16 +167,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &990282983661062272
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712709652979322}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0232697, y: 3.2864075, z: 0.30508995}
-  m_Center: {x: -1.0116348, y: 1.1432037, z: 0}

@@ -55,8 +55,14 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
 
     private int GetSpawnIndex()
     {
-        var playerList = PhotonNetwork.PlayerList;
-        return Array.IndexOf(playerList, PhotonNetwork.LocalPlayer);
+        int position = PhotonNetwork.LocalPlayer.ActorNumber;
+        int numberOfSpawnPoints = spawnpointList.transform.childCount;
+
+        position = (position % numberOfSpawnPoints == 0) ? (numberOfSpawnPoints - 1) : (position % numberOfSpawnPoints - 1);
+
+        return position;
+        //var playerList = PhotonNetwork.PlayerList;
+        //return Array.IndexOf(playerList, PhotonNetwork.LocalPlayer);
     }
 
 
