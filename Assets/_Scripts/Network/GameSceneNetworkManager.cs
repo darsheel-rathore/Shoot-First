@@ -61,8 +61,6 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
         position = (position % numberOfSpawnPoints == 0) ? (numberOfSpawnPoints - 1) : (position % numberOfSpawnPoints - 1);
 
         return position;
-        //var playerList = PhotonNetwork.PlayerList;
-        //return Array.IndexOf(playerList, PhotonNetwork.LocalPlayer);
     }
 
 
