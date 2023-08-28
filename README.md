@@ -1,4 +1,4 @@
-# Shoot First (Working Title)
+# Shoot First
 
 Welcome to the repository for **Shoot First**, an online multiplayer top-down shooter game currently in its prototype stage. Please note that this project is intended for personal hobby and portfolio purposes rather than commercial release. The game incorporates 3D models provided by Synty Studios, available on the Unity Asset Store.
 
