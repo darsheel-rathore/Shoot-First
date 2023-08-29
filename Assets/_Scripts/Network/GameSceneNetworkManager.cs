@@ -70,6 +70,7 @@ public class GameSceneNetworkManager : MonoBehaviourPunCallbacks
         scoreBoardBtn.SetActive(false);
 
         gameCanvas.SetActive(false);
+        scoreBoard.SetActive(false);
         gameoverPanel.SetActive(true);
         Player p = PhotonNetwork.LocalPlayer;
 
